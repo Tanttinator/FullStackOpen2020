@@ -33,7 +33,7 @@ const App = () => {
 
   const addPerson = (event) => {
       event.preventDefault()
-      if(newName.length === 0 || newNumber.length === 0) return
+      //if(newName.length === 0 || newNumber.length === 0) return
 
       const index = persons.findIndex(x => x.name === newName)
 
@@ -41,6 +41,9 @@ const App = () => {
         Persons.create({ name: newName, number: newNumber }).then(data => {
           setPersons(persons.concat(data))
           showStatusMessage(`Added ${data.name}`, 'success')
+        }).catch(error => {
+          console.log(error.response.data)
+          showStatusMessage(error.response.data.error, 'error')
         })
       } else {
         const oldPerson = persons[index]
